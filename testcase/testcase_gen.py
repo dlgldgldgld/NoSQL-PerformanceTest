@@ -27,7 +27,7 @@ CSV_HEDAER.extend(trade_info._fields)
 def gen_client() :
     for _ in range(0, 10000):
         yield client_info(
-            fake.unique.uuid_4(), fake.name(), fake.pybool(), fake.pybool(), fake.random.randint(12, 70),
+            fake.unique.uuid4(), fake.name(), fake.pybool(), fake.pybool(), fake.random.randint(12, 70),
             fake.job(), fake.unique.address(), fake.unique.ipv4_public())
 
 def gen_loginfo( user_list, max_cnt = 100 ) :
