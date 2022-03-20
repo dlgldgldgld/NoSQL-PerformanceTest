@@ -67,9 +67,9 @@ csv, json을 사용할 예정이며 사용해볼 소스파일의 format은 다�
 
 |Case|소요시간(sec)|
 |----|----|
-|SQLITE3 Write(No Index)|39.6116 seconds|
-|SQLITE3 Write(Index)|165.6336 seconds|
-|CASSANDRA Write(Optimizer)|113.722 seconds|
+|SQLITE3 Write(No Index)|73.9409 seconds|
+|SQLITE3 Write(Index)|354.5286 seconds|
+|CASSANDRA Write(Optimizer)|218.628 seconds|
 
 
 **TEST 2. Requirement**
