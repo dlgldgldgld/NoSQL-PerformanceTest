@@ -57,13 +57,13 @@ csv, json을 사용할 예정이며 사용해볼 소스파일의 format은 다�
 **Environments**
 - RDBMS = SQLITE3( Local ), WCS = Cassandra( Local )
   - 서비스를 진행 중인 상태를 가정할 것이기 때문에 SQLITE3에서는 Index를 미리 만들어 놓기로 한다. ( Write 속도는 느려지나, Read 속도는 빨라짐 )
-- 약 500만 명의 유저정보가 있다고 가정하고 해당 정보를 각 DB에 저장.
+- 약 1000만명의 유저정보가 있다고 가정하고 해당 정보를 각 DB에 저장.
 - 유저정보에 관한 Schema는 위에서 정의한 Schema와 동일.
 - Primary Key는 user_id 이다.
 
 <br>
 
-**TEST 1. RESULT**
+**WRITE 시간 비교**
 
 |Case|소요시간(sec)|
 |----|----|
@@ -71,6 +71,12 @@ csv, json을 사용할 예정이며 사용해볼 소스파일의 format은 다�
 |SQLITE3 Write(Index)|354.5286 seconds|
 |CASSANDRA Write(Optimizer)|218.628 seconds|
 
+**READ 시간 비교**
+|Case|소요시간(sec)|
+|----|----|
+|SQLITE3 Read 1 record(No Index)|1726 ms|
+|SQLITE3 Read 1 record(Index)|7 ms|
+|CASSANDRA Read 1 record(Optimizer)|3 ms|
 
 **TEST 2. Requirement**
  - 현재 마켓의 고객은 총 10,000명으로 가정.
@@ -90,3 +96,4 @@ csv, json을 사용할 예정이며 사용해볼 소스파일의 format은 다�
 실행 방법 
 1. Cassandra 실행 - C:\apache\apache-cassandra-3.11.12\bin\cassandra
 2. cqlsh 실행 - C:\apache\apache-cassandra-3.11.12\bin\cqlsh
+
