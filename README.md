@@ -1,12 +1,7 @@
 # NoSQL-PerformanceTest
 NoSQL 종류별 performance 분석을 해보자!
 
-## TestCase 추출
-일단 NoSQL 별로 Test 측정을 해볼 데이터 Set부터 설계해보자.  
-첫째로는 Key-Value의 장점을 확인하기 위한 유저 정보 list에 대해서 Schema를 구성해보자.
-
-Schema는 아래와 같이 정해보았다.
-
+## Schema
 ### USER 정보 - Schema
 
 |Column|Column(eng)|Description|Type|범위|
@@ -20,8 +15,6 @@ Schema는 아래와 같이 정해보았다.
 |직업|job|고객의 직업에 대한 정보|text|-|
 |주소|home_address|배송이 이뤄져야할 위치에 대한 정보|text|-|
 
-그리고 웹 서비스를 통해 상품을 판매하고 있다는 것을 가정하여 판매 정보에 대해서도 미리 Schema를 정해두자.
-
 ### 판매 정보 - Schema
 
 |Column|Column(eng)|Description|Type|범위|
@@ -34,8 +27,7 @@ Schema는 아래와 같이 정해보았다.
 |구매경로|web_or_mobile|어느 경로로 구매하였는지?|text|['Web', 'Mobile']|
 |구입/선물|sell_or_gift|구입 혹은 선물을 한건지?|boolean|0 = 구입, 1 = 선물|
 
-다음으로는 NoSQL의 종류별로 Test 가능한 Source 파일을 정해보자.
-csv, json을 사용할 예정이며 사용해볼 소스파일의 format은 다음과 같이 정하였다.
+### DB Engine 별 Test Format 
 
 |Database|source file|
 |----|----|
@@ -45,46 +37,9 @@ csv, json을 사용할 예정이며 사용해볼 소스파일의 format은 다�
 |Document store(MongoDB)|JSON|
 |검색 엔진(ElasticSearch)|JSON|
 
-**TEST 1. RDBMS vs WCS 비교 - 유저 정보 Read / Write 시간 비교**
-처음으로 해볼 것은 RDBMS와 WCS를 비교해본다.  
-좀 더 엄밀히 말하자면 Key-Value Store와 RDBMS 사이에 어떠한 차이가 있는지에 대해서 비교를 해보고자 한다.
 
-실시간 웹 서비스에서 유저의 정보를 빠르게 받아오고 가져오는 상황이 일어났다고 하자.  
-첫번째로 알아보고 싶은 것은 실제 Write 속도가 얼마나 차이가 있을지에 대한 차이다.  
-
-아래의 테스트 환경으로 진행해보자.
-
-**Environments**
-- RDBMS = SQLITE3( Local ), WCS = Cassandra( Local )
-  - 서비스를 진행 중인 상태를 가정할 것이기 때문에 SQLITE3에서는 Index를 미리 만들어 놓기로 한다. ( Write 속도는 느려지나, Read 속도는 빨라짐 )
-- 약 1000만명의 유저정보가 있다고 가정하고 해당 정보를 각 DB에 저장.
-- 유저정보에 관한 Schema는 위에서 정의한 Schema와 동일.
-- Primary Key는 user_id 이다.
-
-<br>
-
-**WRITE 시간 비교**
-
-|Case|소요시간(sec)|
-|----|----|
-|SQLITE3 Write(No Index)|73.9409 seconds|
-|SQLITE3 Write(Index)|354.5286 seconds|
-|CASSANDRA Write(Optimizer)|218.628 seconds|
-
-**READ 시간 비교**
-|Case|소요시간(sec)|
-|----|----|
-|SQLITE3 Read 1 record(No Index)|1726 ms|
-|SQLITE3 Read 1 record(Index)|7 ms|
-|CASSANDRA Read 1 record(Optimizer)|3 ms|
-
-**TEST 2. Requirement**
- - 현재 마켓의 고객은 총 10,000명으로 가정.
- - 마켓의 Open 날짜는 2010년 3월 5일로 구매 시간은 2010.03.05 ~ 현재까지로 구성.
- - 총 1,000 만개의 record 생성.
- - 고객 성명은 중복될 수 있음.
-
-<br> 
+## 결론
+<https://dlgldgldgld.github.io/database/nosql/nosql_performance_test/> 참조
 
 ## Problem History
 
