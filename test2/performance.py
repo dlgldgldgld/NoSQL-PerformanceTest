@@ -28,10 +28,10 @@ def get_title_sqlite(keyword = ""):
     return result, round(end-start,3)
 
 result, time_spend = get_title_es("Skin")
-print("ELASTICSEARCH, match_size:", len(result), " spend_time : ", time_spend, "ms")
+print("ELASTICSEARCH, match_size:", len(result), " spend_time : ", time_spend, "s")
 
 result, time_spend = get_title_sqlite(keyword = "Skin")
-print("SQLITE3      , match_size:", len(result), " spend_time : ", time_spend, "ms")
+print("SQLITE3      , match_size:", len(result), " spend_time : ", time_spend, "s")
 
 
 
